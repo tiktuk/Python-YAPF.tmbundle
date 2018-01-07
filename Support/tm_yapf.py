@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os, re
+import os, sys, re, traceback
 from sys import stdout, stdin, exit, argv
 from yapf.yapflib.yapf_api import FormatCode
 
@@ -64,8 +64,13 @@ try:
         filename=filename,
         lines=lines_selected
     )
-except:
-    stdout.write("Error: \n%s" % result[1])
+except Exception:
+    stdout.write(
+        ''.join(
+            traceback.format_exception(*sys.exc_info())
+        )
+    )
+    
     exit(206)  # exiting with this code show's output in a tooltip
 else:
     stdout.write(result[0])
