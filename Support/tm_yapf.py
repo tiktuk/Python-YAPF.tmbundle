@@ -4,12 +4,23 @@ import os, re
 from sys import stdout, stdin, exit, argv
 from yapf.yapflib.yapf_api import FormatCode
 
-source = stdin.read()
-use_tabs = os.environ['TM_SOFT_TABS'] == 'NO'
-soft_tab_size = os.environ['TM_TAB_SIZE']
-filename = os.environ['TM_FILENAME']  # For showing the filename in the diff
+if len(argv) > 1:
+    source = open(argv[1], 'r').read()
+else:
+    stdout.write('Error: No input file specified')
+    exit(206)  # exiting with this code show's output in a tooltip
+
+use_tabs = False
+soft_tab_size = 4
+filename = argv[1]  # For showing the filename in the diff
 lines_selected = None
 print_diff = False
+
+if 'TM_SOFT_TABS' in os.environ:
+    use_tabs = os.environ['TM_SOFT_TABS'] == 'NO'
+
+if 'TM_TAB_SIZE' in os.environ:
+    soft_tab_size = os.environ['TM_TAB_SIZE']
 
 if use_tabs:
     indent_width = 1
@@ -39,10 +50,10 @@ style_config = {
     'continuation_indent_width': continuation_indent_width,
 }
 
-if len(argv) > 1:
-    if argv[1] == '--reformat_vertically':
+if len(argv) > 2:
+    if argv[2] == '--reformat_vertically':
         style_config.update({'column_limit': 1})
-    if argv[1] == '--reformat_diff':
+    if argv[2] == '--reformat_diff':
         print_diff = True
 
 try:
