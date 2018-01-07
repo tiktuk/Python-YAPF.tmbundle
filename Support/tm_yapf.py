@@ -51,9 +51,9 @@ style_config = {
 }
 
 if len(argv) > 2:
-    if argv[2] == '--reformat_vertically':
+    if argv[2] == '--vertical':
         style_config.update({'column_limit': 1})
-    if argv[2] == '--reformat_diff':
+    if argv[2] == '--diff':
         print_diff = True
 
 try:

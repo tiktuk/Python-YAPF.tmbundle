@@ -7,7 +7,7 @@
 	<key>command</key>
 	<string>#!/bin/bash
 
-"${TM_PYTHON:-python}" "${TM_BUNDLE_SUPPORT}/tm_yapf.py" "$TM_FILEPATH" --reformat_diff
+"${TM_PYTHON:-python}" "${TM_BUNDLE_SUPPORT}/tm_yapf.py" "$TM_FILEPATH" --diff
 </string>
 	<key>input</key>
 	<string>selection</string>
