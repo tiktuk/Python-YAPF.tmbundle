@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>ghx.eo@gvxghx.arg</string>
+	<key>contactName</key>
+	<string>Tuk Bredsdorff</string>
+	<key>description</key>
+	<string>Support for the &lt;a href="https://github.com/google/yapf"&gt;YAPF&lt;/a&gt; Python formatter.</string>
+	<key>name</key>
+	<string>Python YAPF</string>
+	<key>uuid</key>
+	<string>F7A62F68-33FA-46CF-93F1-817F927DE57C</string>
+</dict>
+</plist>
