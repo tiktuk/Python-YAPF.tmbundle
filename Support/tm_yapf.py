@@ -4,17 +4,23 @@ import os, sys, re, traceback
 from sys import stdout, stdin, exit, argv
 from yapf.yapflib.yapf_api import FormatCode
 
-if len(argv) > 1:
-    source = open(argv[1], 'r').read()
-else:
-    stdout.write('Error: No input file specified')
-    exit(206)  # exiting with this code show's output in a tooltip
-
+source = None
+filename = None
 use_tabs = False
 soft_tab_size = 4
-filename = argv[1]  # For showing the filename in the diff
 lines_selected = None
 print_diff = False
+
+if 'TM_SELECTED_TEXT' in os.environ:
+    source = os.environ['TM_SELECTED_TEXT']
+    # For showing the filename in the diff
+    filename = os.environ['TM_FILENAME']
+elif len(argv) > 1:
+    filename = argv[1]
+    source = open(filename, 'r').read()
+else:
+    stdout.write('Error: No input selection or file specified')
+    exit(206)  # exiting with this code show's output in a tooltip
 
 if 'TM_SOFT_TABS' in os.environ:
     use_tabs = os.environ['TM_SOFT_TABS'] == 'NO'
