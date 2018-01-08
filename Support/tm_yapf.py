@@ -4,23 +4,13 @@ import os, sys, re, traceback
 from sys import stdout, stdin, exit, argv
 from yapf.yapflib.yapf_api import FormatCode
 
-source = None
-filename = None
+filename = getattr(os.environ, 'TM_FILENAME', False) or 'not_saved'
 use_tabs = False
 soft_tab_size = 4
 lines_selected = None
 print_diff = False
+source = stdin.read()
 
-if 'TM_SELECTED_TEXT' in os.environ:
-    source = os.environ['TM_SELECTED_TEXT']
-    # For showing the filename in the diff
-    filename = os.environ['TM_FILENAME']
-elif len(argv) > 1:
-    filename = argv[1]
-    source = open(filename, 'r').read()
-else:
-    stdout.write('Error: No input selection or file specified')
-    exit(206)  # exiting with this code show's output in a tooltip
 
 if 'TM_SOFT_TABS' in os.environ:
     use_tabs = os.environ['TM_SOFT_TABS'] == 'NO'
@@ -34,20 +24,6 @@ else:
     indent_width = soft_tab_size
 
 continuation_indent_width = indent_width
-
-# $TM_SELECTION indicates the range of the current selection.
-#
-# Example value: "19:12-21:19"
-#
-# YAPF supports formatting only the selected lines with its
-# lines-parameter.
-#
-# We strip the character indices as they are supported.
-if 'TM_SELECTED_TEXT' in os.environ and 'TM_SELECTION' in os.environ:
-    match = re.search(r'(\d+):*\d*-(\d*):*', os.environ['TM_SELECTION'])
-
-    if match:
-        lines_selected = [tuple(int(g) for g in match.groups())]
 
 style_config = {
     'use_tabs': use_tabs,
