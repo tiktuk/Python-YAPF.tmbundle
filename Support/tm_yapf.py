@@ -7,7 +7,6 @@ from yapf.yapflib.yapf_api import FormatCode
 filename = getattr(os.environ, 'TM_FILENAME', False) or 'not_saved'
 use_tabs = False
 soft_tab_size = 4
-lines_selected = None
 print_diff = False
 source = stdin.read()
 
@@ -44,7 +43,6 @@ try:
         style_config=style_config,
         print_diff=print_diff,
         filename=filename,
-        lines=lines_selected
     )
 except Exception:
     stdout.write(
