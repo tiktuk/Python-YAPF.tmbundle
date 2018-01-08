@@ -4,31 +4,18 @@ import os, sys, re, traceback
 from sys import stdout, stdin, exit, argv
 from yapf.yapflib.yapf_api import FormatCode
 
-filename = getattr(os.environ, 'TM_FILENAME', False) or 'not_saved'
-use_tabs = False
-soft_tab_size = 4
-print_diff = False
 source = stdin.read()
-
-
-if 'TM_SOFT_TABS' in os.environ:
-    use_tabs = os.environ['TM_SOFT_TABS'] == 'NO'
-
-if 'TM_TAB_SIZE' in os.environ:
-    soft_tab_size = os.environ['TM_TAB_SIZE']
-
-if use_tabs:
-    indent_width = 1
-else:
-    indent_width = soft_tab_size
-
-continuation_indent_width = indent_width
+filename = getattr(os.environ, 'TM_FILENAME', False) or 'not_saved'
+use_tabs = getattr(os.environ, 'TM_SOFT_TABS', False) or os.environ['TM_SOFT_TABS'] == 'NO'
+soft_tab_size = getattr(os.environ, 'TM_TAB_SIZE', False) or 4
+indent_width = 1 if use_tabs else soft_tab_size
+print_diff = False
 
 style_config = {
     'use_tabs': use_tabs,
     'dedent_closing_brackets': True,
     'indent_width': indent_width,
-    'continuation_indent_width': continuation_indent_width,
+    'continuation_indent_width': indent_width,
 }
 
 if len(argv) > 2:
