@@ -36,7 +36,7 @@ except Exception:
         ''.join(
             traceback.format_exception(*sys.exc_info())
         )
-    )
+    )  # yapf: disable
     
     exit(206)  # exiting with this code show's output in a tooltip
 else:
