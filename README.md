@@ -45,12 +45,12 @@ The latter was my original motivation for writing this bundle. I got tired of ma
 into
 
 	a = [
-		item1,
-		item2,
-		item3,
-		item4,
-		item5,
-		item6
+	    item1,
+	    item2,
+	    item3,
+	    item4,
+	    item5,
+	    item6
 	]
 
 Notice that depending on how much whitespace you include in your selection, YAPF may format your code a bit differently.
